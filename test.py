@@ -8,3 +8,7 @@ variable = Variable(tensor, requires_grad=True)
 
 print(tensor)
 print(variable)
+
+variable #Variable format
+variable.data #tensor format
+variable.data.numpy() #numpy format
