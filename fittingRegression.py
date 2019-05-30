@@ -5,11 +5,11 @@ import matplotlib.pyplot as plt
 x = torch.unsqueeze(torch.linspace(-1, 1, 100), dim=1)  # x data (tensor), shape=(100, 1)
 y = x.pow(2) + 0.2*torch.rand(x.size())                 # noisy y data (tensor), shape=(100, 1)
 
-# 画图
-plt.scatter(x.data.numpy(), y.data.numpy())
-plt.show()
+# # 画图
+# plt.scatter(x.data.numpy(), y.data.numpy())
+# plt.show()
 
-# build Neural Network 
+# build Neural Network
 import torch
 import torch.nn.functional as F     # 激励函数都在这
 
@@ -36,40 +36,43 @@ Net (
 )
 """
 
-# Train Network 
+# Train Network
 # optimizer 是训练的工具
 optimizer = torch.optim.SGD(net.parameters(), lr=0.2)  # 传入 net 的所有参数, 学习率
 loss_func = torch.nn.MSELoss()      # 预测值和真实值的误差计算公式 (均方差)
 
+# Branch 1 - Simple Training
 for t in range(100):
     prediction = net(x)     # 喂给 net 训练数据 x, 输出预测值
-
     loss = loss_func(prediction, y)     # 计算两者的误差
-
     optimizer.zero_grad()   # 清空上一步的残余更新参数值
     loss.backward()         # 误差反向传播, 计算参数更新值
     optimizer.step()        # 将参数更新值施加到 net 的 parameters 上
-
-# Visualization Training Process
-import matplotlib.pyplot as plt
-
-plt.ion()   # 画图
-plt.show()
-
-for t in range(200):
-
-    ...
-    loss.backward()
-    optimizer.step()
-
-    # 接着上面来
-    if t % 5 == 0:
-        # plot and show learning process
-        plt.cla()
-        plt.scatter(x.data.numpy(), y.data.numpy())
-        plt.plot(x.data.numpy(), prediction.data.numpy(), 'r-', lw=5)
-        plt.text(0.5, 0, 'Loss=%.4f' % loss.data.numpy(), fontdict={'size': 20, 'color':  'red'})
-        plt.pause(0.1)
+    print("\n iteration:", t,
+          # "\n prediction:", prediction.data.numpy(),
+          "\n loss:", loss.data.numpy())
 
 
-
+#
+# # Branch 2 - Visualization Training Process
+# import matplotlib.pyplot as plt
+#
+# plt.ion()   # 画图
+# plt.show()
+#
+# for t in range(200):
+#     prediction = net(x)     # 喂给 net 训练数据 x, 输出预测值
+#     loss = loss_func(prediction, y)     # 计算两者的误差
+#     optimizer.zero_grad()   # 清空上一步的残余更新参数值
+#     loss.backward()
+#     optimizer.step()
+#
+#     if t % 5 == 0:
+#         # plot and show learning process
+#         plt.cla()
+#         plt.scatter(x.data.numpy(), y.data.numpy())
+#         plt.plot(x.data.numpy(), prediction.data.numpy(), 'r-', lw=5)
+#         plt.text(0.5, 0, 'Loss=%.4f' % loss.data.numpy(), fontdict={'size': 20, 'color':  'red'})
+#         plt.pause(0.1)
+#
+#
