@@ -4,7 +4,7 @@
 import torch
 import matplotlib.pyplot as plt
 
-print(torch.__version__)
+# print(torch.__version__)
 
 # 假数据
 n_data = torch.ones(100, 2)         # 数据的基本形态
@@ -15,6 +15,9 @@ y1 = torch.ones(100)                # 类型1 y data (tensor), shape=(100, )
 
 x = torch.cat((x0, x1), 0).type(torch.FloatTensor)  # FloatTensor = 32-bit floating
 y = torch.cat((y0, y1),).type(torch.LongTensor)    # LongTensor = 64-bit integer
+
+# print("\nx\n",x,
+#       "\ny\n",y)
 
 # # 画图
 # plt.scatter(x.data.numpy()[:, 0], x.data.numpy()[:, 1], c=y.data.numpy(), s=30, lw=0)
@@ -52,36 +55,36 @@ Net (
 # optimizer 是训练的工具
 optimizer = torch.optim.SGD(net.parameters(), lr=0.02)  # 传入 net 的所有参数, 学习率
 # 算误差的时候, 注意真实值!不是! one-hot 形式的, 而是1D Tensor, (batch,)
-# 但是预测值是2D tensor (batch, n_classes)
+# 但是预测值是2D tensor (batch, n_classes)??
 loss_func = torch.nn.CrossEntropyLoss()
 
-# branch 1 
+# branch 1
 for t in range(100):
     out = net(x)     # 喂给 net 训练数据 x, 输出分析值
     loss = loss_func(out, y)     # 计算两者的误差
     optimizer.zero_grad()   # 清空上一步的残余更新参数值
     loss.backward()         # 误差反向传播, 计算参数更新值
     optimizer.step()        # 将参数更新值施加到 net 的 parameters 上
-    # if (t%5==0):
-    # 	print("\nepisode ",t,
-    # 		"\nout",out,
-    # 		"\nloss ",loss)
-
-
-# # branch 2  - visualization 
-
+    if (t%5==0):
+    	print("\nepisode ",t,
+    		"\nout",out,
+    		"\nloss ",loss)
+#
+#
+# # branch 2  - visualization
+#
 # import matplotlib.pyplot as plt
-
+#
 # plt.ion()   # 画图
 # plt.show()
-
+#
 # for t in range(100):
 #     out = net(x)     # 喂给 net 训练数据 x, 输出分析值
 #     loss = loss_func(out, y)     # 计算两者的误差
 #     optimizer.zero_grad()
 #     loss.backward()
 #     optimizer.step()
-
+#
 #     # 接着上面来
 #     if t % 2 == 0:
 #         plt.cla()
@@ -93,6 +96,6 @@ for t in range(100):
 #         accuracy = sum(pred_y == target_y)/200.  # 预测中有多少和真实值一样
 #         plt.text(1.5, -4, 'Accuracy=%.2f' % accuracy, fontdict={'size': 20, 'color':  'red'})
 #         plt.pause(0.1)
-
+#
 # plt.ioff()  # 停止画图
 # plt.show()
