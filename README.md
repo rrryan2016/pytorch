@@ -17,3 +17,6 @@ torch version = 1.1.0
 |classification.py|区分类别，分类，（我认为就是离散的回归）|
 |basicOperation.py|快速搭建网络、保存、读取网络、批训练`dataloader`、优化器效果对比|
 |CNN.py|CNN在MNIST手写数据集上的使用|
+
+## Update in 2020 Spring 
+The folder 'Tutorial' includes my exercise codes in 《深度学习方法与应用》 in semester 2020 Spring 
