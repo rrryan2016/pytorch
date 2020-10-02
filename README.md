@@ -20,3 +20,6 @@ torch version = 1.1.0
 
 ## Update in 2020 Spring 
 The folder 'Tutorial' includes my exercise codes in 《深度学习方法与应用》 in semester 2020 Spring 
+
+## Update in 2020 Autumn 
+The folder 'IntersectionClassification' includes a project to classify different traffic intersections in a small scale using SqueezeNet. 
